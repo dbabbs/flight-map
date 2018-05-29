@@ -1,3 +1,5 @@
+document.getElementById('map').addEventListener('contextmenu', evt => evt.preventDefault());
+
 const deckgl = new deck.DeckGL({
    /* send it ✈️ */
    map: mapboxgl,
