@@ -1,11 +1,13 @@
 //TODO:
 // -add PR -> MIA -> CUBA flights
 // -Fix frankfurt location
+// - clean data (long names);
 
 
 
 
 document.getElementById('map').addEventListener('contextmenu', evt => evt.preventDefault());
+const tooltip = document.getElementById('tooltip');
 
 const deckgl = new deck.DeckGL({
    /* send it ✈️ */
@@ -62,8 +64,8 @@ function plot(t, portsMod) {
       data: t,
       // getSourcePosition: d => d.origin_coordinates,
       // getTargetPosition: d => d.destination_coordinates,
-      getSourceColor: d => [214, 82, 0, 150],
-      getTargetColor: d => [228, 182, 0, 150],
+      getSourceColor: d => [214, 82, 0, 150], //[104, 79, 215, 200], //,
+      getTargetColor: d => [228, 182, 0, 150], //[35, 115, 190, 200], //,
       //onHover: d => console.log('yoooooo'),
       onHover: updateTooltip,
       //onHover: ({ object }) => console.log(object.origin + '<>' + object.destination),
@@ -91,7 +93,7 @@ function plot(t, portsMod) {
    });
 
    function filter({ layer, x, y, object }) {
-      const tooltip = document.getElementById('tooltip');
+
 
       if (object) {
          // console.log(deckgl.props);
@@ -107,6 +109,7 @@ function plot(t, portsMod) {
          tooltip.style.left = `${x}px`;
          tooltip.innerHTML = '<div>' + object.port + '</div>';
          tooltip.innerHTML += '<div>' + object.count + ' arrivals</div>';
+         tooltip.style.backgroundColor = "rgba(32, 37, 44, .9)";
 
       } else {
          console.log(deckgl.props.layers);
@@ -114,6 +117,7 @@ function plot(t, portsMod) {
          plot(backup, portsMod);
 
          tooltip.innerHTML = '';
+         tooltip.style.backgroundColor = "rgba(32, 37, 44, 0)";
       }
 
    }
@@ -122,22 +126,18 @@ function plot(t, portsMod) {
 }
 
 function updateTooltip({ x, y, object }) {
-
    console.log(object)
    if (object) {
       tooltip.style.top = `${y}px`;
       tooltip.style.left = `${x}px`;
-      if (object.date != null) { //arc info
-         tooltip.innerHTML = '<div>' + object.origin + '<>' + object.destination + '</div>';
-         tooltip.innerHTML += '<div>' + object.date + '</div>';
-         tooltip.innerHTML += '<div>' + object.airline + '</div>';
-      } else { //scatter info
-         tooltip.innerHTML = '<div>' + object.port + '</div>';
-         tooltip.innerHTML += '<div>' + object.count + ' arrivals</div>';
-      }
+      tooltip.innerHTML = '<div>' + object.origin + '<>' + object.destination + '</div>';
+      tooltip.innerHTML += '<div>' + object.date + '</div>';
+      tooltip.innerHTML += '<div>' + object.airline + '</div>';
+      tooltip.style.backgroundColor = "rgba(32, 37, 44, .9)";
 
    } else {
       tooltip.innerHTML = '';
+      tooltip.style.backgroundColor = "rgba(32, 37, 44, 0)";
    }
 }
 
