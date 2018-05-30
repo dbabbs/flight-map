@@ -1,3 +1,10 @@
+//TODO:
+// -add PR -> MIA -> CUBA flights
+// -Fix frankfurt location
+
+
+
+
 document.getElementById('map').addEventListener('contextmenu', evt => evt.preventDefault());
 
 const deckgl = new deck.DeckGL({
@@ -6,15 +13,17 @@ const deckgl = new deck.DeckGL({
    container: 'map',
    mapboxApiAccessToken:
       'pk.eyJ1IjoiZGJhYmJzIiwiYSI6ImNqN2d2aDBvczFkNmEycWt5OXo0YnY3ejkifQ.h1gKMs1F18_AhB09s91gWg',
-   mapStyle: 'mapbox://styles/mapbox/light-v9', //'https://free.tilehosting.com/styles/positron/style.json?key=U0iNgiZKlYdwvgs9UPm1',
-   longitude: -125.24414062499999,
+   mapStyle: 'mapbox://styles/dbabbs/cjhsk9yfx6sli2rtm1lbrze2j', //'mapbox://styles/mapbox/light-v9', //'https://free.tilehosting.com/styles/positron/style.json?key=U0iNgiZKlYdwvgs9UPm1',
+   longitude: -57.38580902885856,
    // layerFilter: true,
-   latitude: 35.746512259918504,
-   zoom: 4,
+   latitude: 62.51353296267838,
+   zoom: 1.755069312994418,
    maxZoom: 88,
    pitch: 60,
    bearing: 50
 });
+
+console.log(deckgl.getMapboxMap().getCenter())
 
 let data = null;
 let portsMod = null;
@@ -53,8 +62,8 @@ function plot(t, portsMod) {
       data: t,
       // getSourcePosition: d => d.origin_coordinates,
       // getTargetPosition: d => d.destination_coordinates,
-      getSourceColor: d => [187, 2, 0, 150],
-      getTargetColor: d => [59, 30, 177, 150],
+      getSourceColor: d => [214, 82, 0, 150],
+      getTargetColor: d => [228, 182, 0, 150],
       //onHover: d => console.log('yoooooo'),
       onHover: updateTooltip,
       //onHover: ({ object }) => console.log(object.origin + '<>' + object.destination),
@@ -70,7 +79,7 @@ function plot(t, portsMod) {
       pickable: true,
       getPosition: d => d.coordinates,
       getRadius: d => d.count * 20000,
-      getColor: d => [255, 255, 50],
+      getColor: d => [37, 126, 98],
       //onHover: updateTooltip,
       onHover: filter,
       highlightColor: [50, 50, 50, 128], //currently not working?,
@@ -91,7 +100,7 @@ function plot(t, portsMod) {
          // console.log(deckgl.props.layers[0].props);
          // console.log(deckgl.props.layers[0].props.data);
          var temp = deckgl.props.layers[0].props.data;
-         let output = temp.filter((obj) => obj.origin == object.port);
+         let output = temp.filter((obj) => obj.origin == object.port || obj.destination == object.port);
          plot(output, portsMod)
 
          tooltip.style.top = `${y}px`;
@@ -109,23 +118,7 @@ function plot(t, portsMod) {
 
    }
 
-   document.getElementById('send').onclick = function() {
-      console.log('hii');
-      console.log(deckgl);
 
-      const scatter2 = new deck.ScatterplotLayer({
-         id: 'scatter2',
-         data: portsMod,
-         pickable: true,
-         getPosition: d => d.coordinates,
-         getRadius: d => d.count * 100,
-         getColor: d => [10, 10, 50]
-      });
-
-      deckgl.setProps({
-         layers: [scatter2, arc]
-      });
-   };
 }
 
 function updateTooltip({ x, y, object }) {

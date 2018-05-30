@@ -9,9 +9,30 @@ body {
    top: 0;
    bottom: 0;
    width: 100%;
+   background-color: #0f1f2e;
 }
 
 .info {
+   position: absolute;
+   width: 260px;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   height: 100vh;
+   padding: 20px;
+   background-color: rgba(32, 37, 44, .9);
+}
+
+.info .inner-info {
+
+   color: #FFFAFA;
+   padding: 10px;
+   margin-bottom: 10px;
+}
+
+
+/* old info */
+/* .info {
    position: absolute;
    width: 260px;
    top: 0;
@@ -27,7 +48,7 @@ body {
    border-color: #fff;
    padding: 10px;
    margin-bottom: 10px;
-}
+} */
 
 .histogram {
    position: absolute;
@@ -49,15 +70,15 @@ body {
 
 
 #tooltip {
-  font-family: Helvetica, Arial, sans-serif;
   font-size: 11px;
   position: absolute;
-  padding: 4px;
+  padding: 8px; /* this is causing issues*/
+  border-radius: 5px;
   margin: 8px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(32, 37, 44, .9);
   color: #fff;
-  max-width: 300px;
-  font-size: 10px;
+  max-width: 400px;
+  font-size: 14px;
   z-index: 9;
   pointer-events: none;
 }
