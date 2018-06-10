@@ -1,44 +1,58 @@
 date,origin,destination,airline,type
-1/31/18,Chicago O'Hare O'Hare,Seattle-Tacoma Airport,Alaska,Work
-1/28/18,Seattle-Tacoma Airport,Chicago O'Hare O'Hare,Alaska,Work
-1/27/18,Schipol Airport,Seattle-Tacoma Airport,Delta,Work
-1/21/18,Seattle-Tacoma Airport,Schipol Airport,Delta,Work
-1/12/18,Las Vegas Airport,Seattle-Tacoma Airport,Alaska,Work
-1/6/18,Seattle-Tacoma Airport,Las Vegas Airport,Alaska,Work
-12/27/17,San Francisco Airport,Seattle-Tacoma Airport,Alaska,Personal
-12/25/17,Ben Gurien International Airport,San Francisco Airport,United,Work
-12/24/17,Ataturk International Airport,Ben Gurien International Airport,Turkish Airlines,Work
-12/21/17,Interrent Santorini Airport,Athens International Airport,Olympic Air,Personal
-12/21/17,Athens International Airport,Ataturk International Airport,Turkish Airlines,Work
-12/18/17,Athens International Airport,Interrent Santorini Airport,Olympic Air,Personal
-12/16/17,Berlin Sch_nefeld,Athens International Airport,Ryanair,Personal
-12/13/17,London Heathrow,Berlin Tegel,British Airways,Work
-12/12/17,Seattle-Tacoma Airport,London Heathrow,British Airways,Work
-11/30/17,Oakland Airport,Seattle-Tacoma Airport,Southwest,Work
-11/27/17,San Francisco Airport,Los Angeles Airport,Virgin America,Work
-11/27/17,Los Angeles Airport,San Francisco Airport,Virgin America,Work
-11/22/17,Seattle-Tacoma Airport,San Francisco Airport,Alaska,Work
-10/28/17,Berlin Tegel,Frankfurt Airport,Lufthansa,Work
-10/28/17,Frankfurt Airport,Seattle-Tacoma Airport,Lufthansa,Work
-10/23/17,Frankfurt Airport,Berlin Tegel,Lufthansa,Work
-10/22/17,Seattle-Tacoma Airport,Frankfurt Airport,Lufthansa,Work
-10/8/17,San Francisco Airport,Seattle-Tacoma Airport,United,Personal
-10/6/17,Seattle-Tacoma Airport,San Francisco Airport,United,Personal
-7/24/17,John F. Kennedy International Airport,Seattle-Tacoma Airport,Alaska,Personal
-7/20/17,Seattle-Tacoma Airport,John F. Kennedy International Airport,Alaska,Personal
-7/10/17,San Francisco Airport,Seattle-Tacoma Airport,Alaska,Personal
-7/6/17,Seattle-Tacoma Airport,San Francisco Airport,Alaska,Personal
-6/13/17,Seattle-Tacoma Airport,Charlotte Douglas Airport,American,Personal
-6/13/17,Charlotte Douglas Airport,Luis Munoz International Airport,American,Personal
-6/26/17,Havana Cuba Airport,Charlotte Douglas Airport,American,Personal
-6/26/17,Charlotte Douglas Airport,Seattle-Tacoma Airport,American,Personal
+2/24/17,Seattle-Tacoma Airport,San Diego Airport,Southwest,Personal
 2/26/17,Oakland Airport,Seattle-Tacoma Airport,Southwest,Personal
 2/26/17,San Diego Airport,Oakland Airport,Southwest,Personal
-2/24/17,Seattle-Tacoma Airport,San Diego Airport,Southwest,Personal
-3/19/27,Seattle-Tacoma Airport,San Francisco Airport,United,Personal
 3/19/17,San Francisco Airport,Cabo San Lucas Airport,United,Personal
+3/19/17,Seattle-Tacoma Airport,San Francisco Airport,United,Personal
+6/13/17,Seattle-Tacoma Airport,Charlotte Douglas Airport,American,Personal
+6/13/17,Charlotte Douglas Airport,Luis Munoz International Airport,American,Personal
+6/23/17,Luis Munoz International Airport,Miami International Airport,American,Personal
+6/23/17,Miami International Airport,Havana Cuba Airport,American,Personal
+6/26/17,Havana Cuba Airport,Charlotte Douglas Airport,American,Personal
+6/26/17,Charlotte Douglas Airport,Seattle-Tacoma Airport,American,Personal
+7/6/17,Seattle-Tacoma Airport,San Francisco Airport,Alaska,Personal
+7/10/17,San Francisco Airport,Seattle-Tacoma Airport,Alaska,Personal
+7/20/17,Seattle-Tacoma Airport,John F. Kennedy International Airport,Alaska,Personal
+7/24/17,John F. Kennedy International Airport,Seattle-Tacoma Airport,Alaska,Personal
+10/6/17,Seattle-Tacoma Airport,San Francisco Airport,United,Personal
+10/8/17,San Francisco Airport,Seattle-Tacoma Airport,United,Personal
+10/22/17,Seattle-Tacoma Airport,Frankfurt Airport,Lufthansa,Work
+10/23/17,Frankfurt Airport,Berlin Tegel,Lufthansa,Work
+10/28/17,Berlin Tegel,Frankfurt Airport,Lufthansa,Work
+10/28/17,Frankfurt Airport,Seattle-Tacoma Airport,Lufthansa,Work
+11/22/17,Seattle-Tacoma Airport,San Francisco Airport,Alaska,Work
+11/27/17,San Francisco Airport,Los Angeles Airport,Virgin America,Work
+11/27/17,Los Angeles Airport,San Francisco Airport,Virgin America,Work
+11/30/17,Oakland Airport,Seattle-Tacoma Airport,Southwest,Work
+12/12/17,Seattle-Tacoma Airport,London Heathrow,British Airways,Work
+12/13/17,London Heathrow,Berlin Tegel,British Airways,Work
+12/16/17,Berlin Sch_nefeld,Athens International Airport,Ryanair,Personal
+12/18/17,Athens International Airport,Interrent Santorini Airport,Olympic Air,Personal
+12/21/17,Interrent Santorini Airport,Athens International Airport,Olympic Air,Personal
+12/21/17,Athens International Airport,Ataturk International Airport,Turkish Airlines,Work
+12/24/17,Ataturk International Airport,Ben Gurien International Airport,Turkish Airlines,Work
+12/25/17,Ben Gurien International Airport,San Francisco Airport,United,Work
+12/27/17,San Francisco Airport,Seattle-Tacoma Airport,Alaska,Personal
+1/6/18,Seattle-Tacoma Airport,Las Vegas Airport,Alaska,Work
+1/12/18,Las Vegas Airport,Seattle-Tacoma Airport,Alaska,Work
+1/21/18,Seattle-Tacoma Airport,Schipol Airport,Delta,Work
+1/27/18,Schipol Airport,Seattle-Tacoma Airport,Delta,Work
+1/28/18,Seattle-Tacoma Airport,Chicago O'Hare Airport,Alaska,Work
+1/31/18,Chicago O'Hare Airport,Seattle-Tacoma Airport,Alaska,Work
 3/10/18,Seattle-Tacoma Airport,Frankfurt Airport,Lufthansa,Work
 3/15/18,Frankfurt Airport,Seattle-Tacoma Airport,Lufthansa,Work
 3/16/18,Seattle-Tacoma Airport,Cancun Airport,Delta,Personal
 3/22/18,Cancun Airport,Denver Airport,United,Personal
 3/22/18,Denver Airport,Seattle-Tacoma Airport,United,Personal
+5/10/18,Seattle-Tacoma Airport,Denver Airport,Alaska,Personal
+5/13/18,Denver Airport,Seattle-Tacoma Airport,Alaska,Personal
+5/15/18,Seattle-Tacoma Airport,San Francisco Airport,Alaska,Work
+5/17/18,San Francisco Airport,Seattle-Tacoma Airport,Alaska,Work
+5/22/18,Seattle-Tacoma Airport,Chicago O'Hare Airport,Alaska,Work
+5/24/18,Chicago O'Hare Airport,Seattle-Tacoma Airport,Alaska,Work
+5/30/18,Seattle-Tacoma Airport,Frankfurt Airport,Lufthansa,Personal
+5/31/18,Frankfurt Airport,Barcelona El Prat Airport,Lufthansa,Personal
+6/2/18,Barcelona El Prat Airport,Mykonos Airport,Vueling,Personal
+6/7/18,Mykonos Airport,Athens International Airport,Olympic Air,Personal
+6/9/18,Athens International Airport,Frankfurt Airport,Lufthansa,Personal
+6/9/18,Frankfurt Airport,Seattle-Tacoma Airport,Lufthansa,Personal
