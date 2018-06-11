@@ -11,6 +11,10 @@
    <!-- Github -->
    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+   <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+   <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+
    <title>Flight Map</title>
 
 </head>
@@ -66,12 +70,29 @@
                <span id="airlines" class="stat"></span><span class="caption"> airlines</span>
             </div>
          </div>
+         <!-- <div class="caption">Change theme:</div>
+         <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label id="dark-button" class="btn btn-secondary active">
+               <input type="radio" name="options" id="dark" autocomplete="off">Dark
+            </label>
+            <label id="light-button" class="btn btn-secondary">
+               <input type="radio" name="options" id="light" autocomplete="off">Light
+            </label>
+
+         </div> -->
+
+         <div class="group">
+            <span class="caption">Change tile source:</span>
+            <select class="form-control form-control-sm" id="tiles"></select>
+         </div>
 
 
       </div>
    </div>
    <!-- <div class="histogram">
-      <div class="inner-histogram"></div>
+      <div class="inner-histogram"><br>
+         <div id="slider3"></div>
+      </div>
    </div> -->
 
 

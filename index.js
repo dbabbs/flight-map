@@ -1,9 +1,10 @@
 //TODO:
-// switch from light to Dark mode
 // clean up sidebar
 // playback // histogram
 // time-based filtering
 // HERE tiles
+// airline filter
+// change color of lines
 
 document.getElementById('map').addEventListener('contextmenu', evt => evt.preventDefault());
 const tooltip = document.getElementById('tooltip');
@@ -42,6 +43,28 @@ for (var i = 0; i < Object.keys(views).length; i++) {
    document.getElementById('flys').appendChild(option);
 }
 
+var tiles = {
+   mapboxDark: 'mapbox://styles/dbabbs/cji9c7bbi2dxm2smlhmpdyjhx',
+   mapboxLight: 'mapbox://styles/dbabbs/cjgfmampi000a2snu0f4touze',
+   // ctoMvt: 'styles/cto-mvt.json',
+   nextzen: 'styles/nextzen.json',
+   xyzOsm: 'styles/xyz-osm.json'
+}
+
+for (var i = 0; i < Object.keys(tiles).length; i++) {
+   var option = document.createElement('option');
+   option.innerText = Object.keys(tiles)[i];
+   option.id = Object.keys(tiles)[i];
+   document.getElementById('tiles').appendChild(option);
+}
+document.getElementById('tiles').onchange = changeStyle;
+
+function changeStyle() {
+   var x = document.getElementById('tiles').options[document.getElementById('tiles').selectedIndex].id;
+   console.log(x);
+   deckgl.getMapboxMap().setStyle(tiles[x]);
+}
+
 const deckgl = new deck.DeckGL({
    /* send it ✈️ */
    map: mapboxgl,
@@ -56,9 +79,23 @@ const deckgl = new deck.DeckGL({
    bearing: 50
 });
 
-// deckgl.setProps({
-//    mapStyle: 'mapbox://styles/dbabbs/cji9c7bbi2dxm2smlhmpdyjhx'
-// })
+// document.getElementById("dark").onclick = dark;
+// document.getElementById("light").onclick = light;
+
+function light() {
+   deckgl.getMapboxMap().setStyle('mapbox://styles/dbabbs/cjgfmampi000a2snu0f4touze');
+   document.getElementById("map").style.backgroundColor = '#dbe2e6'
+   document.getElementById("light-button").classList.add("active")
+   document.getElementById("dark-button").classList.remove("active")
+}
+
+function dark() {
+   deckgl.getMapboxMap().setStyle('mapbox://styles/dbabbs/cji9c7bbi2dxm2smlhmpdyjhx');
+   document.getElementById("map").style.backgroundColor = '#0e1d2a'
+   document.getElementById("light-button").classList.remove("active")
+   document.getElementById("dark-button").classList.add("active")
+}
+
 
 let data = null;
 let portsMod = null;
@@ -90,12 +127,6 @@ function plot(t, portsMod) {
 
    const arc = new deck.ArcLayer({
       id: 'arc', data: t,
-      // getSourceColor: d => [
-      //    208, 25, 80, 100
-      // ],
-      // getTargetColor: d => [
-      //    59, 30, 177, 100
-      // ],
       getSourceColor: d => [
          15, 129, 135
       ],
@@ -106,7 +137,7 @@ function plot(t, portsMod) {
       strokeWidth: 5,
       pickable: true,
       autoHighlight: true,
-      highlightColor: [8, 242, 145, 250]
+      highlightColor: [249, 205,23,250] //[8, 242, 145, 250]
    });
 
    const scatter = new deck.ScatterplotLayer({
@@ -179,7 +210,6 @@ function plot(t, portsMod) {
 
          let portOutput = portTemp.filter(obj => obj.port == object.port);
 
-         console.log(portOutput)
          plot(output, portOutput);
          analytics(output);
 
