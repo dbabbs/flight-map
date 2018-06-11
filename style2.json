@@ -30,7 +30,7 @@
     "sources": {
       "composite": {
          "tiles": [
-            "https://xyz.api.here.com/tiles/256/all/{z}/{x}/{y}.mvt"
+            "https://xyz.api.here.com/tiles/osmbase/256/all/{z}/{x}/{y}.mvt"
          ],
          "minzoom": 1,
          "maxzoom": 16,

@@ -1,7 +1,9 @@
 //TODO:
-// -add PR -> MIA -> CUBA flights
-// -Fix frankfurt location
-// - clean data (long names);
+// switch from light to Dark mode
+// clean up sidebar
+// playback // histogram
+// time-based filtering
+// HERE tiles
 
 document.getElementById('map').addEventListener('contextmenu', evt => evt.preventDefault());
 const tooltip = document.getElementById('tooltip');
@@ -45,7 +47,7 @@ const deckgl = new deck.DeckGL({
    map: mapboxgl,
    container: 'map',
    mapboxApiAccessToken: 'pk.eyJ1IjoiZGJhYmJzIiwiYSI6ImNqN2d2aDBvczFkNmEycWt5OXo0YnY3ejkifQ.h1gKMs1F18_AhB09s91gWg',
-   mapStyle: 'style2.json',//'mapbox://styles/dbabbs/cji9c7bbi2dxm2smlhmpdyjhx',
+   mapStyle: 'mapbox://styles/dbabbs/cji9c7bbi2dxm2smlhmpdyjhx',
    longitude: -57.38580902885856,
    latitude: 62.51353296267838,
    zoom: 1.755069312994418,
@@ -53,6 +55,10 @@ const deckgl = new deck.DeckGL({
    pitch: 60,
    bearing: 50
 });
+
+// deckgl.setProps({
+//    mapStyle: 'mapbox://styles/dbabbs/cji9c7bbi2dxm2smlhmpdyjhx'
+// })
 
 let data = null;
 let portsMod = null;
