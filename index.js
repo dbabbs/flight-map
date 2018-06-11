@@ -29,7 +29,7 @@ const deckgl = new deck.DeckGL({
    mapStyle: 'styles/xyz-osm-dark.json',
    longitude: -57.38580902885856,
    latitude: 62.51353296267838,
-   zoom: 1.755069312994418,
+   zoom: 2,
    maxZoom: 88,
    pitch: 60,
    bearing: 50
