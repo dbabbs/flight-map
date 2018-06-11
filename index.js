@@ -63,6 +63,7 @@ const deckgl = new deck.DeckGL({
 let data = null;
 let portsMod = null;
 let backup = null;
+let portBackup = null;
 
 var maphub = 'https://maphub.api.here.com/geospace/x-flights/search';
 fetch(maphub, {
@@ -80,6 +81,7 @@ fetch(maphub, {
    });
    //backup = JSON.parse(JSON.stringify(data));
    backup = data;
+   portBackup = portsMod;
    plot(data, portsMod);
    analytics(data);
 });
@@ -142,10 +144,43 @@ function plot(t, portsMod) {
 
    function filter({layer, x, y, object}) {
       if (object) {
-         console.log(object)
+
          var temp = deckgl.props.layers[0].props.data;
+         var portTemp = deckgl.props.layers[1].props.data;
          let output = temp.filter(obj => obj.origin == object.port || obj.destination == object.port);
-         plot(output, portsMod);
+
+
+         // console.log(output);
+         // var uniques = {};
+         // for (var i = 0; i < output.length; i++) {
+         //    var port = output[i].port;
+         //    if (port in uniques) {
+         //       uniques[port] = uniques[port] + 1;
+         //    } else {
+         //       uniques[port] = 1
+         //    }
+         // }
+         // uniques = Object.keys(uniques)
+         // console.log(uniques);
+         // var portOutput = [];
+         // for (var i = 0; i < portTemp.length; i ++) {
+         //    var match = false;
+         //    for (var z = 0; z < uniques.length; z++) {
+         //       if (uniques[z] == portTemp[i].port) {
+         //          match = true;
+         //       }
+         //    }
+         //    if (true) {
+         //       portOutput.push(portTemp[i])
+         //    }
+         // }
+
+
+
+         let portOutput = portTemp.filter(obj => obj.port == object.port);
+
+         console.log(portOutput)
+         plot(output, portOutput);
          analytics(output);
 
          tooltip.style.top = `${y}px`;
@@ -159,9 +194,7 @@ function plot(t, portsMod) {
          //this is the only line of code that updates analytics outside of analytics:
          document.getElementById("location").innerHTML = object.port;
       } else {
-         console.log(deckgl.props.layers);
-         console.log('LEAVEEE');
-         plot(backup, portsMod);
+         plot(backup, portBackup);
          analytics(backup)
 
          tooltip.innerHTML = '';
@@ -175,7 +208,6 @@ function plot(t, portsMod) {
 }
 
 function updateTooltip({x, y, object}) {
-   console.log(object);
    if (object) {
       tooltip.style.top = `${y}px`;
       tooltip.style.left = `${x}px`;
@@ -257,7 +289,7 @@ document.getElementById('flys').onchange = fly;
 
 function fly() {
    var x = document.getElementById('flys').options[document.getElementById('flys').selectedIndex].id;
-   console.log(x);
+
    deckgl.setProps({
     viewState: {
       longitude: views[x].longitude,
@@ -295,7 +327,4 @@ function analytics(data) {
    document.getElementById("trips").innerHTML = data.length;
    document.getElementById("airlines").innerHTML = Object.keys(airlines).length;
 
-
-   console.log(since);
-   console.log(distance);
 }
