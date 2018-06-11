@@ -1,21 +1,17 @@
-# GeoSpace API // Deck.GL // Mapbox GL
+# XYZ Map // GeoSpace API
 
-Using GeoSpace API to grab my flight history.
+Using XYZ Maps and GeoSpace API to display my Uber rides.
 
-Plotting with Uber's [Deck.GL](http://deck.gl) arc layer.
+NextZen OSM tiles.
 
-Deck.GL is built on Mapbox GL.
+Created two custom map styles.
 
-Custom HERE MVT tiles from CTO office.
-
-Ignore the `data` and `extra` directories.
+Ignore the `prep` folder.
 
 ### To run:
 
 Download this repo, then start a web server in its directory:
 
-`python -m SimpleHTTPServer 8002`
+`python -m SimpleHTTPServer 8001`
 
-Then navigate to: [http://localhost:8002](http://localhost:8002)
-
-Make sure you are on the HERE network to access MVT tiles. If on VPN, ensure you are on the `HERE-Tunnel-ALL` group.
+Then navigate to: [http://localhost:8001](http://localhost:8001)

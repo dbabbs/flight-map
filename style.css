@@ -13,7 +13,6 @@ body {
    background-color: #0e1d2a;
 }
 
-
 /* Left Panel */
 .info {
    position: absolute;
@@ -82,11 +81,7 @@ h2 {
    margin-bottom: 10px;
 }
 
-
-
-
 /* tooltip */
-
 #tooltip {
   font-size: 11px;
   position: absolute;
@@ -116,6 +111,7 @@ h2 {
    color: #fff;
 }
 
+/* other */
 .mapboxgl-ctrl {
    display: none !important;
 }
