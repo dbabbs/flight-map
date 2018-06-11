@@ -1,12 +1,9 @@
-# XYZ Map // GeoSpace API
+# Flight Map
+A map of my flight history throughout 2017 and 2018.
 
-Using XYZ Maps and GeoSpace API to display my Uber rides.
-
-NextZen OSM tiles.
-
-Created two custom map styles.
-
-Ignore the `prep` folder.
+### Tech:
+- HERE XYZ
+- Uber deck.gl
 
 ### To run:
 
