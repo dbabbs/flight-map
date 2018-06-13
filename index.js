@@ -9,6 +9,8 @@
 // time-based filtering
 // airline filter
 // change color of lines
+// add attriubtion
+// look at to dos in notebook
 
 /////////////////////////
 /* Setup & Interaction */
