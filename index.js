@@ -9,8 +9,10 @@
 // time-based filtering
 // airline filter
 // change color of lines
-// add attriubtion
 // look at to dos in notebook
+// change OSM tiles to HERE tiles
+// FB Open graph & google analytics
+
 
 /////////////////////////
 /* Setup & Interaction */
@@ -62,6 +64,27 @@ fetch(maphub, {
    portBackup = portsMod;
    plot(data, portsMod);
    analytics(data);
+
+
+   var element = document.getElementById('slider');
+   var start = new Date(data[0].date);
+   var end = new Date(data[data.length-1].date);
+   var options = {
+       isDate: true,
+       min: start,
+       max: end,
+       start: start,
+       end: end,
+       overlap: false
+   };
+   var mySlider = new Slider(element, options);
+
+   var harry = mySlider.subscribe('moving', function(data) {
+
+       console.log('left ' + data.left);
+       console.log('right ' + data.right);
+   });
+
 });
 
 //Plot deck.gl layers

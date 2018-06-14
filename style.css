@@ -63,21 +63,36 @@ h2 {
 
 
 .histogram {
-   position: absolute;
-   bottom: 0;
+   /* position: absolute; */
+   /* bottom: 0;
    left: 0;
    right: 0;
    padding: 20px;
-   height: 200px;
+   height: 200px; */
+
+   /* position: absolute;
+   width: 100%;
+   bottom: 0;
+   height: 300px;
+   padding: 20px;
+   background-color: #1D1E27; */
+
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: white;
+   padding-left: 320px;
+   padding-right: 20px;
+
 }
 
 .histogram .inner-histogram {
-   background-color: rgba(0, 0, 0, 0.75);
+   background-color: #1D1E27; /*rgba(0, 0, 0, 0.75);*/
    color: #FFFAFA;
-   box-shadow: 0 1px 2px rgb(128, 128, 128, 0.5);
    border-radius: 3px;
    border-color: #fff;
-   padding: 10px;
+   padding: 20px;
    margin-bottom: 10px;
 }
 
