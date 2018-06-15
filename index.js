@@ -174,7 +174,15 @@ function scatterFilter({layer, x, y, object}) {
       //this is the only line of code that updates analytics outside of analytics:
       document.getElementById("location").innerHTML = object.port;
    } else {
-      plot(backup, portBackup);
+      console.log(slider.getInfo());
+      var newBackup = JSON.parse(JSON.stringify(backup))
+
+      var temp = newBackup.filter(obj => new Date(obj.date) > new Date(slider.getInfo().left));
+      temp = temp.filter(obj => new Date(obj.date) < new Date(slider.getInfo().right));
+
+      var newPortBackup = createPorts(temp);
+      plot(temp, newPortBackup);
+      //plot(backup, portBackup);
       analytics(backup)
 
       tooltip.innerHTML = '';
