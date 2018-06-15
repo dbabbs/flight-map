@@ -89,11 +89,13 @@ fetch(maphub, {
       var temp = data.filter(obj => new Date(obj.date) > new Date(z.left));
       temp = temp.filter(obj => new Date(obj.date) < new Date(z.right));
 
+      var tempPorts = createPorts(temp)
+
       document.getElementById('min').innerHTML = z.left.toLocaleString();
       document.getElementById('max').innerHTML = z.right.toLocaleString();
 
       console.log(temp);
-      plot(temp, portsMod)
+      plot(temp, tempPorts)
    });
 
 });
@@ -203,6 +205,7 @@ function arcTooltip({x, y, object}) {
 
 //Creates the dataset for the scatterplot
 function createPorts(data) {
+   console.log(data);
    var ports = {};
    var group = [];
    for (var i = 0; i < data.features.length; i++) {
