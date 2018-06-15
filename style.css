@@ -127,7 +127,8 @@ h2 {
 
 .histogram .inner-histogram {
    /*rgba(0, 0, 0, 0.75);*/
-   background-color: #1D1E27; 
+   transition: all 0.5s ease;
+   background-color: #1D1E27;
    color: #FFFAFA;
    border-radius: 3px;
    border-color: #fff;
