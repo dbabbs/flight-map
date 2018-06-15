@@ -12,6 +12,7 @@
 // look at to dos in notebook
 // change OSM tiles to HERE tiles
 // FB Open graph & google analytics
+// move to xyz and tokens
 
 
 /////////////////////////
@@ -45,6 +46,24 @@ let portsMod = null;
 let backup = null;
 let portBackup = null;
 
+
+var element = document.getElementById('slider');
+var start = new Date('2/24/17');
+var end = new Date('6/9/18');
+
+var options = {
+    isDate: true,
+    min: start,
+    max: end,
+    start: start,
+    end: end,
+    overlap: false
+};
+
+var slider = new Slider(element, options);
+
+
+
 //Fetch data from Maphub
 var maphub = 'https://maphub.api.here.com/geospace/x-flights/search';
 fetch(maphub, {
@@ -65,24 +84,16 @@ fetch(maphub, {
    plot(data, portsMod);
    analytics(data);
 
+   slider.subscribe('moving', function(z) {
 
-   var element = document.getElementById('slider');
-   var start = new Date(data[0].date);
-   var end = new Date(data[data.length-1].date);
-   var options = {
-       isDate: true,
-       min: start,
-       max: end,
-       start: start,
-       end: end,
-       overlap: false
-   };
-   var mySlider = new Slider(element, options);
+      var temp = data.filter(obj => new Date(obj.date) > new Date(z.left));
+      temp = temp.filter(obj => new Date(obj.date) < new Date(z.right));
 
-   var harry = mySlider.subscribe('moving', function(data) {
+      document.getElementById('min').innerHTML = z.left.toLocaleString();
+      document.getElementById('max').innerHTML = z.right.toLocaleString();
 
-       console.log('left ' + data.left);
-       console.log('right ' + data.right);
+      console.log(temp);
+      plot(temp, portsMod)
    });
 
 });
@@ -307,20 +318,76 @@ function fly() {
 ////////////
 /* Themes */
 ////////////
+var themes = {
+   dark: 'Dark Theme',
+   light: 'Light Theme'
+};
+for (var i = 0; i < Object.keys(themes).length; i++) {
+   var option = document.createElement('option');
+   option.innerText = Object.values(themes)[i];
+   option.id = Object.keys(themes)[i];
+   document.getElementById('themes').appendChild(option);
+}
+document.getElementById('themes').onchange = changeTheme;
 
-document.getElementById("dark").onclick = dark;
-document.getElementById("light").onclick = light;
+function changeTheme() {
+   var p = document.getElementById('themes').options[document.getElementById('themes').selectedIndex].id;
+   if (p == 'light') {
+      light();
+   } else {
+      dark();
+   }
+}
 
 function light() {
    deckgl.getMapboxMap().setStyle('styles/xyz-osm-light.json');
    document.getElementById("map").style.backgroundColor = '#dbe2e6'
-   document.getElementById("light-button").classList.add("active")
-   document.getElementById("dark-button").classList.remove("active")
+
+   document.getElementById("info").style.backgroundColor = '#F1F1F2';
+   document.querySelector("h2").style.color = "#333";
+
+   var captions = document.querySelectorAll(".caption");
+   for (var i = 0; i < captions.length; i++) {
+      captions[i].style.color = "#6F6F6F";
+   }
+
+   var stats = document.querySelectorAll(".stat");
+   for (var i = 0; i < stats.length; i++) {
+      stats[i].style.color = "#333";
+   }
+
+   document.getElementById("flys").style.backgroundColor = '#EAEAEB';
+   document.getElementById("flys").style.borderColor = '#D4D4D4';
+   document.getElementById("flys").style.color = '#6F6F6F';
+
+   document.getElementById("themes").style.backgroundColor = '#EAEAEB';
+   document.getElementById("themes").style.borderColor = '#D4D4D4';
+   document.getElementById("themes").style.color = '#6F6F6F';
 }
 
 function dark() {
    deckgl.getMapboxMap().setStyle('styles/xyz-osm-dark.json');
    document.getElementById("map").style.backgroundColor = '#0e1d2a'
-   document.getElementById("light-button").classList.remove("active")
-   document.getElementById("dark-button").classList.add("active")
+
+   document.getElementById("info").style.backgroundColor = '#1D1E27';
+   document.querySelector("h2").style.color = "#fff";
+
+   var captions = document.querySelectorAll(".caption");
+   for (var i = 0; i < captions.length; i++) {
+      captions[i].style.color = "#919193";
+   }
+
+   var stats = document.querySelectorAll(".stat");
+   for (var i = 0; i < stats.length; i++) {
+      stats[i].style.color = "#fff  ";
+   }
+
+   document.getElementById("flys").style.backgroundColor = '#0E1D2A';
+   document.getElementById("flys").style.borderColor = '#919191';
+   document.getElementById("flys").style.color = '#fff';
+
+   document.getElementById("themes").style.backgroundColor = '#0E1D2A';
+   document.getElementById("themes").style.borderColor = '#919191';
+   document.getElementById("themes").style.color = '#fff';
+
 }

@@ -24,13 +24,12 @@
 <body>
    <div id="tooltip"></div>
    <div id="map"></div>
-   <div class='info'>
+   <div id="info" class='info'>
       <!-- <button id="send">press me</button> -->
       <div class='inner-info'>
          <div>
             <h2>Dylan's Flights</h2>
-            <p class="caption">A visualization of all my flights from 2017 and 2018.</p>
-            <p class="caption">Made with HERE, deck.gl and OSM.</p>
+            <p class="caption">A visualization of all my flights from 2017 and 2018. Made with HERE, deck.gl and OSM.</p>
             <a href="https://twitter.com/dbabbs?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @dbabbs</a>
             <a class="github-button" href="https://github.com/dbabbs" aria-label="Follow @dbabbs on GitHub">Follow @dbabbs</a>
          </div>
@@ -38,9 +37,13 @@
             <span class="caption">Select a view:</span>
             <select class="form-control form-control-sm" id="flys"></select>
          </div>
+         <div class="group">
+            <span class="caption">Select a theme:</span>
+            <select class="form-control form-control-sm" id="themes"></select>
+         </div>
 
          <div class="group start-end">
-            Key
+            <span class="caption">Key</span>
             <div>
                <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/1200/svg">
                   <line x1="0" y1="6" x2="12" y2="6" style="stroke:#0F8187;stroke-width:2" />
@@ -73,7 +76,7 @@
                <span id="airlines" class="stat"></span><span class="caption"> airlines</span>
             </div>
          </div>
-         <div class="caption">Change theme:</div>
+         <!-- <div class="caption">Change theme:</div>
          <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label id="dark-button" class="btn btn-secondary active">
                <input type="radio" name="options" id="dark" autocomplete="off">Dark
@@ -81,7 +84,7 @@
             <label id="light-button" class="btn btn-secondary">
                <input type="radio" name="options" id="light" autocomplete="off">Light
             </label>
-         </div>
+         </div> -->
          <br>
          <br>
          <!-- <div class="group" id="slider"></div> -->
@@ -91,6 +94,8 @@
    </div>
    <div class="histogram">
       <div class="inner-histogram"><br>
+         <div id="min">August 7, 2017</div>
+         <div id="max">August 7, 2017</div>
          <div id="slider"></div>
       </div>
    </div>
