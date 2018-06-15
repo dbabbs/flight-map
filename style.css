@@ -63,40 +63,6 @@ h2 {
 }
 
 
-.histogram {
-   /* position: absolute; */
-   /* bottom: 0;
-   left: 0;
-   right: 0;
-   padding: 20px;
-   height: 200px; */
-
-   /* position: absolute;
-   width: 100%;
-   bottom: 0;
-   height: 300px;
-   padding: 20px;
-   background-color: #1D1E27; */
-
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   color: white;
-   padding-left: 320px;
-   padding-right: 20px;
-
-}
-
-.histogram .inner-histogram {
-   background-color: #1D1E27; /*rgba(0, 0, 0, 0.75);*/
-   color: #FFFAFA;
-   border-radius: 3px;
-   border-color: #fff;
-   padding: 20px;
-   margin-bottom: 10px;
-}
-
 /* tooltip */
 #tooltip {
   font-size: 11px;
@@ -130,4 +96,120 @@ h2 {
 /* other */
 .mapboxgl-ctrl {
    display: none !important;
+}
+
+/* Slider and histogram */
+
+.histogram {
+   /* position: absolute; */
+   /* bottom: 0;
+   left: 0;
+   right: 0;
+   padding: 20px;
+   height: 200px; */
+
+   /* position: absolute;
+   width: 100%;
+   bottom: 0;
+   height: 300px;
+   padding: 20px;
+   background-color: #1D1E27; */
+
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: white;
+   padding-left: 320px;
+   padding-right: 20px;
+
+}
+
+.histogram .inner-histogram {
+   /*rgba(0, 0, 0, 0.75);*/
+   background-color: #1D1E27; 
+   color: #FFFAFA;
+   border-radius: 3px;
+   border-color: #fff;
+   padding: 20px;
+   margin-bottom: 20px;
+}
+
+.slider {
+   width: 100%;
+   height: 0.6rem;
+   /* border: 1px solid #000; */
+   border-radius: 5px;
+   position: relative;
+   background-color: #4B5157;
+}
+
+.slider.one-way .handle.handle-left {
+   visibility: hidden;
+}
+
+/* .slider .slider-circle {
+   width: 0.6rem;
+   height: 0.6rem;
+   border-radius: 50%;
+   background-color: #0a84c1;
+   position: relative;
+   display: inline-block;
+   margin-top: 1rem;
+   pointer-events: none;
+   -webkit-user-select: none;
+} */
+
+.slider .handle {
+   width: 1.5rem;
+   height: 1.5rem;
+   border-radius: 2rem;
+   position: absolute;
+   top: -.45rem;
+   border: 1px solid #000;
+   background-color: #fff;
+   text-align: center;
+   cursor: pointer;
+   z-index: 1;
+   -webkit-tap-highlight-color: transparent;
+}
+
+.slider .handle.ontop {
+   z-index: 2;
+}
+
+.slider .handle:active {
+   border-color: #0a84c1;
+   box-shadow: 0 0 0.5rem #0a84c1;
+}
+
+.slider .handle-left {
+   left: 0;
+}
+
+.slider .handle-right {
+   right: 0;
+}
+
+.slider .slider-fill {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background: #4B64D7;
+   pointer-events: none;
+   -webkit-user-select: none;
+}
+
+.slider .slider-transition {
+   -webkit-transition: all 0.5s ease;
+   transition: all 0.5s ease;
+}
+/* #graph {
+   background-color: #fff;
+} */
+
+rect.bar {
+   fill: #4B5157;
 }

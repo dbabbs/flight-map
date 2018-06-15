@@ -75,14 +75,17 @@ fetch(maphub, {
    },
    method: 'GET'
 }).then(res => res.json()).then(data => {
-   portsMod = createPorts(data);
+
    data = data.features.map(x => {
       return x.properties;
    });
+
+   portsMod = createPorts(data);
    backup = data;
    portBackup = portsMod;
    plot(data, portsMod);
    analytics(data);
+   histogram(data);
 
    slider.subscribe('moving', function(z) {
 
@@ -91,11 +94,11 @@ fetch(maphub, {
 
       var tempPorts = createPorts(temp)
 
-      document.getElementById('min').innerHTML = z.left.toLocaleString();
-      document.getElementById('max').innerHTML = z.right.toLocaleString();
+      // document.getElementById('min').innerHTML = z.left.toLocaleString().split(",")[0];
+      // document.getElementById('max').innerHTML = z.right.toLocaleString().split(",")[0];
 
-      console.log(temp);
       plot(temp, tempPorts)
+
    });
 
 });
@@ -205,14 +208,13 @@ function arcTooltip({x, y, object}) {
 
 //Creates the dataset for the scatterplot
 function createPorts(data) {
-   console.log(data);
    var ports = {};
    var group = [];
-   for (var i = 0; i < data.features.length; i++) {
-      var origin = data.features[i].properties.origin;
-      var sourcePosition = data.features[i].properties.sourcePosition;
-      var destination = data.features[i].properties.destination;
-      var targetPosition = data.features[i].properties.targetPosition;
+   for (var i = 0; i < data.length; i++) {
+      var origin = data[i].origin;
+      var sourcePosition = data[i].sourcePosition;
+      var destination = data[i].destination;
+      var targetPosition = data[i].targetPosition;
 
       if (destination in ports) {
          ports[destination] = {
@@ -359,6 +361,8 @@ function light() {
       stats[i].style.color = "#333";
    }
 
+   document.querySelector(".histogram .inner-histogram").style.backgroundColor = '#F1F1F2';
+
    document.getElementById("flys").style.backgroundColor = '#EAEAEB';
    document.getElementById("flys").style.borderColor = '#D4D4D4';
    document.getElementById("flys").style.color = '#6F6F6F';
@@ -385,6 +389,8 @@ function dark() {
       stats[i].style.color = "#fff  ";
    }
 
+   document.querySelector(".histogram .inner-histogram").style.backgroundColor = '#1D1E27';
+
    document.getElementById("flys").style.backgroundColor = '#0E1D2A';
    document.getElementById("flys").style.borderColor = '#919191';
    document.getElementById("flys").style.color = '#fff';
@@ -392,5 +398,66 @@ function dark() {
    document.getElementById("themes").style.backgroundColor = '#0E1D2A';
    document.getElementById("themes").style.borderColor = '#919191';
    document.getElementById("themes").style.color = '#fff';
+}
 
+function histogram(data) {
+
+      var margin = {top: 0, right: 0, bottom: 5, left: 0},
+       width = width = document.getElementById("graph").offsetWidth,
+       height = 40 - margin.top - margin.bottom;
+
+   var parseDate = d3.timeParse("%m/%d/%y");
+   var x = d3.scaleTime()
+      .domain([new Date(2017, 1, 20), new Date(2018, 5, 10)])
+
+      .rangeRound([0, width]);
+   var y = d3.scaleLinear()
+      .range([height, 0]);
+
+   var histogram = d3.histogram()
+      .value(function(d) {
+         return d.date;
+      })
+      .domain(x.domain())
+      .thresholds(x.ticks(d3.timeWeek));
+
+   var svg = d3.select("#graph").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform",
+         "translate(" + margin.left + "," + margin.top + ")");
+
+   data.forEach(function(d) {
+      d.date = parseDate(d.date);
+   });
+
+   var bins = histogram(data);
+
+   y.domain([0, d3.max(bins, function(d) {
+      return d.length;
+   })]);
+
+   svg.selectAll("rect")
+      .data(bins)
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", 1)
+      .attr("transform", function(d) {
+         return "translate(" + x(d.x0) + "," + y(d.length) + ")";
+      })
+      .attr("width", function(d) {
+         return x(d.x1) - x(d.x0) - 1;
+      })
+      .attr("height", function(d) {
+         return height - y(d.length);
+      });
+      // add the x Axis
+     // svg.append("g")
+     //     .attr("transform", "translate(0," + height + ")")
+     //     .call(d3.axisBottom(x));
+
+     // add the y Axis
+     // svg.append("g")
+     //     .call(d3.axisLeft(y));
 }
