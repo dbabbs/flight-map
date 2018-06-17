@@ -1,16 +1,12 @@
+"use strict";
+
 // by Dylan Babbs
 // dylanbabbs.com
 // twitter.com/dbabbs
 // github.com/dbabbs
 
 //TODO:
-// clean up sidebar
-// playback // histogram
-// change color of lines
-// FB Open graph & google analytics
-// move to xyz and tokens
-// mobile prevent
-// light theme colors on histogram
+// FB Open graph & google analyticss
 // date range on slider
 // code cleanup
 
@@ -49,7 +45,6 @@ let portBackup = null;
 var element = document.getElementById('slider');
 var start = new Date('2/24/17');
 var end = new Date('6/9/18');
-
 var options = {
     isDate: true,
     min: start,
@@ -58,23 +53,19 @@ var options = {
     end: end,
     overlap: false
 };
-
 var slider = new Slider(element, options);
 
 
 
-//Fetch data from Maphub
-var maphub = 'https://maphub.api.here.com/geospace/x-flights/search';
-fetch(maphub, {
+//Fetch data from XYZ
+var xyz= 'https://xyz.api.here.com/hub/spaces/sPtFUG2Z/search';
+fetch(xyz, {
    headers: {
       Accept: 'application/geo+json',
-      'Auth-Service-Id': 'here_app',
-      'Auth-Identifier': 'uHmohQEsYnwhA4FGz1Jw',
-      'Auth-Secret': 'hKz7JnGqtqj5UECMSBqDHw'
+      'Authorization': 'Bearer IOc24KwI4ndNBxt922-myA'
    },
    method: 'GET'
 }).then(res => res.json()).then(data => {
-
    data = data.features.map(x => {
       return x.properties;
    });
@@ -86,6 +77,9 @@ fetch(maphub, {
    analytics(data);
    histogram(data);
 
+   document.getElementById('min').innerHTML = data[0].date.toLocaleString().split(",")[0];
+   document.getElementById('max').innerHTML = data[data.length-1].date.toLocaleString().split(",")[0];
+
    slider.subscribe('moving', function(z) {
 
       var temp = data.filter(obj => new Date(obj.date) > new Date(z.left));
@@ -93,8 +87,8 @@ fetch(maphub, {
 
       var tempPorts = createPorts(temp)
 
-      // document.getElementById('min').innerHTML = z.left.toLocaleString().split(",")[0];
-      // document.getElementById('max').innerHTML = z.right.toLocaleString().split(",")[0];
+      document.getElementById('min').innerHTML = z.left.toLocaleString().split(",")[0];
+      document.getElementById('max').innerHTML = z.right.toLocaleString().split(",")[0];
 
       plot(temp, tempPorts)
       analytics(temp);
@@ -379,6 +373,11 @@ function light() {
    document.getElementById("themes").style.backgroundColor = '#EAEAEB';
    document.getElementById("themes").style.borderColor = '#D4D4D4';
    document.getElementById("themes").style.color = '#6F6F6F';
+
+   var bars = document.querySelectorAll("rect.bar");
+   for (var i = 0; i < bars.length; i++) {
+      bars[i].style.fill = '#919193';
+   }
 }
 
 function dark() {
@@ -407,35 +406,37 @@ function dark() {
    document.getElementById("themes").style.backgroundColor = '#0E1D2A';
    document.getElementById("themes").style.borderColor = '#919191';
    document.getElementById("themes").style.color = '#fff';
+
+   var bars = document.querySelectorAll("rect.bar");
+   for (var i = 0; i < bars.length; i++) {
+      bars[i].style.fill = "#4B5157";
+   }
 }
 
 function histogram(data) {
 
-      var margin = {top: 0, right: 0, bottom: 5, left: 0},
-       width = width = document.getElementById("graph").offsetWidth,
-       height = 40 - margin.top - margin.bottom;
+   var margin = {
+         top: 0,
+         right: 0,
+         bottom: 5,
+         left: 0
+      }
+
+   var width = width = document.getElementById("graph").offsetWidth;
+   var height = 40 - margin.top - margin.bottom;
 
    var parseDate = d3.timeParse("%m/%d/%y");
-   var x = d3.scaleTime()
-      .domain([new Date(2017, 1, 20), new Date(2018, 5, 10)])
+   var x = d3.scaleTime().domain([
+      new Date(2017, 1, 20),
+      new Date(2018, 5, 10)
+   ]).rangeRound([0, width]);
+   var y = d3.scaleLinear().range([height, 0]);
 
-      .rangeRound([0, width]);
-   var y = d3.scaleLinear()
-      .range([height, 0]);
+   var histogram = d3.histogram().value(function(d) {
+      return d.date;
+   }).domain(x.domain()).thresholds(x.ticks(d3.timeWeek));
 
-   var histogram = d3.histogram()
-      .value(function(d) {
-         return d.date;
-      })
-      .domain(x.domain())
-      .thresholds(x.ticks(d3.timeWeek));
-
-   var svg = d3.select("#graph").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform",
-         "translate(" + margin.left + "," + margin.top + ")");
+   var svg = d3.select("#graph").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
    data.forEach(function(d) {
       d.date = parseDate(d.date);
@@ -443,30 +444,24 @@ function histogram(data) {
 
    var bins = histogram(data);
 
-   y.domain([0, d3.max(bins, function(d) {
-      return d.length;
-   })]);
-
-   svg.selectAll("rect")
-      .data(bins)
-      .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", 1)
-      .attr("transform", function(d) {
-         return "translate(" + x(d.x0) + "," + y(d.length) + ")";
+   y.domain([
+      0,
+      d3.max(bins, function(d) {
+         return d.length;
       })
-      .attr("width", function(d) {
-         return x(d.x1) - x(d.x0) - 1;
-      })
-      .attr("height", function(d) {
-         return height - y(d.length);
-      });
-      // add the x Axis
-     // svg.append("g")
-     //     .attr("transform", "translate(0," + height + ")")
-     //     .call(d3.axisBottom(x));
+   ]);
 
-     // add the y Axis
-     // svg.append("g")
-     //     .call(d3.axisLeft(y));
+   svg.selectAll("rect").data(bins).enter().append("rect").attr("class", "bar").attr("x", 1).attr("transform", function(d) {
+      return "translate(" + x(d.x0) + "," + y(d.length) + ")";
+   }).attr("width", function(d) {
+      return x(d.x1) - x(d.x0) - 1;
+   }).attr("height", function(d) {
+      return height - y(d.length);
+   });
+   // svg.append("g")
+   //     .attr("transform", "translate(0," + height + ")")
+   //     .call(d3.axisBottom(x));
+
+   // svg.append("g")
+   //     .call(d3.axisLeft(y));
 }

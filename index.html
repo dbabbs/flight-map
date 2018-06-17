@@ -2,23 +2,37 @@
 <html>
 
 <head>
-   <script src='https://unpkg.com/deck.gl@~5.3.0/deckgl.min.js'></script>
-   <!-- only if base map is needed -->
-   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
-   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-   <link href="style.css" type="text/css" rel="stylesheet" />
-   <!-- Github -->
-   <script async defer src="https://buttons.github.io/buttons.js"></script>
+   <title>Flight Map</title>
 
+   <!-- Open Graph // Twitter-->
+   <meta name="twitter:card" content="summary" />
+   <meta name="twitter:dbabbs" content="@nickbilton" />
+   <meta property="og:url" content="http://projects.dylanbabbs.com/flight-map" />
+   <meta property="og:title" content="Dylan's Flight Map" />
+   <meta property="og:description" content="Visualization of Dylan's flights throughout 2017 and 2018." />
+   <meta property="og:image" content="opengraph.png" />
+
+   <!-- Favicon -->
    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
 
+   <!-- Uber Deck.GL -->
+   <script src='https://unpkg.com/deck.gl@~5.3.0/deckgl.min.js'></script>
+   <!-- MapboxGL -->
+   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+   <!-- Github Button-->
+   <script async defer src="https://buttons.github.io/buttons.js"></script>
+   <!-- Slider -->
    <script src='omni-slider.js' type="text/javascript"></script>
-
+   <!-- D3.js -->
    <script src="//d3js.org/d3.v4.min.js"></script>
 
-   <title>Flight Map</title>
+   <!-- Bootstrap -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+   <!-- CSS -->
+   <link href="style.css" type="text/css" rel="stylesheet" />
+
+
 
 </head>
 
@@ -30,7 +44,10 @@
       <div class='inner-info'>
          <div>
             <h2>Dylan's Flights</h2>
-            <p class="caption">A visualization of all my flights from 2017 and 2018. Made with HERE, deck.gl and OSM.</p>
+            <p class="caption">A visualization of all my flights from 2017 and 2018. Made with
+               <a href="https://developer.here.com">HERE</a>,
+               <a href="http://uber.github.io/deck.gl/#/">deck.gl</a> and
+               <a href="https://www.openstreetmap.org/">OSM</a>.</p>
             <a href="https://twitter.com/dbabbs?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @dbabbs</a>
             <a class="github-button" href="https://github.com/dbabbs" aria-label="Follow @dbabbs on GitHub">Follow @dbabbs</a>
          </div>
@@ -77,27 +94,21 @@
                <span id="airlines" class="stat"></span><span class="caption"> airlines</span>
             </div>
          </div>
-         <!-- <div class="caption">Change theme:</div>
-         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label id="dark-button" class="btn btn-secondary active">
-               <input type="radio" name="options" id="dark" autocomplete="off">Dark
-            </label>
-            <label id="light-button" class="btn btn-secondary">
-               <input type="radio" name="options" id="light" autocomplete="off">Light
-            </label>
-         </div> -->
          <br>
          <br>
-         <!-- <div class="group" id="slider"></div> -->
 
 
       </div>
    </div>
    <div class="histogram">
       <div class="inner-histogram">
+         <div id="date-range">
+            <span id="min"></span>
+            <span id="max"></span>
+         </div>
+
          <div id="graph"></div>
-         <!-- <div id="min">August 7, 2017</div>
-         <div id="max">August 7, 2017</div> -->
+
          <div id="slider"></div>
       </div>
    </div>
