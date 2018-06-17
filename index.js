@@ -6,14 +6,13 @@
 //TODO:
 // clean up sidebar
 // playback // histogram
-// time-based filtering
-// airline filter
 // change color of lines
-// look at to dos in notebook
-// change OSM tiles to HERE tiles
 // FB Open graph & google analytics
 // move to xyz and tokens
-
+// mobile prevent
+// light theme colors on histogram
+// date range on slider
+// code cleanup
 
 /////////////////////////
 /* Setup & Interaction */
@@ -98,6 +97,7 @@ fetch(maphub, {
       // document.getElementById('max').innerHTML = z.right.toLocaleString().split(",")[0];
 
       plot(temp, tempPorts)
+      analytics(temp);
 
    });
 
@@ -143,7 +143,14 @@ function plot(t, portsMod) {
    });
 
    deckgl.setProps({
-      layers: [arc, scatter, scatterOutline]
+      layers: [arc, scatter, scatterOutline],
+      viewState: {
+        longitude: deckgl.getMapboxMap().getCenter().lng,
+        latitude: deckgl.getMapboxMap().getCenter().lat,
+        zoom: deckgl.getMapboxMap().getZoom(),
+        pitch: deckgl.getMapboxMap().getPitch(),
+        bearing: deckgl.getMapboxMap().getBearing()
+      },
    });
 }
 
@@ -174,7 +181,6 @@ function scatterFilter({layer, x, y, object}) {
       //this is the only line of code that updates analytics outside of analytics:
       document.getElementById("location").innerHTML = object.port;
    } else {
-      console.log(slider.getInfo());
       var newBackup = JSON.parse(JSON.stringify(backup))
 
       var temp = newBackup.filter(obj => new Date(obj.date) > new Date(slider.getInfo().left));
@@ -183,7 +189,7 @@ function scatterFilter({layer, x, y, object}) {
       var newPortBackup = createPorts(temp);
       plot(temp, newPortBackup);
       //plot(backup, portBackup);
-      analytics(backup)
+      analytics(temp)
 
       tooltip.innerHTML = '';
       tooltip.style.opacity = '0';
@@ -200,7 +206,7 @@ function arcTooltip({x, y, object}) {
       tooltip.style.left = `${x}px`;
       tooltip.innerHTML = '<div><span class="key key-route">Origin</span><span class="value">' + object.origin + '</span></div>';
       tooltip.innerHTML += '<div><span class="key key-route">Destination</span><span class="value">' + object.destination + '</span></div>';
-      tooltip.innerHTML += '<div><span class="key key-route">Date</span><span class="value">' + object.date + '</span></div>';
+      tooltip.innerHTML += '<div><span class="key key-route">Date</span><span class="value">' + new Date(object.date).toLocaleDateString() + '</span></div>';
       tooltip.innerHTML += '<div><span class="key key-route">Airline</span><span class="value">' + object.airline + '</span></div>';
       tooltip.style.backgroundColor = '#1D1E27';
       tooltip.style.opacity = '1';
@@ -249,14 +255,10 @@ function createPorts(data) {
 //Prepare data for sidebar statistics
 function analytics(data) {
    var distance = 0;
-   var since = new Date(data[1].date);
    var airlines = {}
    var airport = data[0].origin;
    for (var i = 0; i < data.length; i++) {
       distance += data[i].distance;
-      if (since > new Date(data[i].date)) {
-         since = new Date(data[i].date)
-      }
       var airline = data[i].airline;
 
       if (airline in airlines) {
@@ -265,7 +267,6 @@ function analytics(data) {
          airlines[airline] = 1
       }
    }
-   document.getElementById("since").innerHTML = since.toLocaleDateString();
    document.getElementById("distance").innerHTML = Math.round(distance, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); //adds commas
    document.getElementById("trips").innerHTML = data.length;
    document.getElementById("airlines").innerHTML = Object.keys(airlines).length;
@@ -316,13 +317,13 @@ document.getElementById('flys').onchange = fly;
 function fly() {
    var x = document.getElementById('flys').options[document.getElementById('flys').selectedIndex].id;
    deckgl.setProps({
-    viewState: {
-      longitude: views[x].longitude,
-      latitude: views[x].latitude,
-      zoom: views[x].zoom,
-      pitch: views[x].pitch,
-      bearing: views[x].bearing
-    },
+      viewState: {
+       longitude: views[x].longitude,
+       latitude: views[x].latitude,
+       zoom: views[x].zoom,
+       pitch: views[x].pitch,
+       bearing: views[x].bearing
+      },
     transitionInterpolator: new deck.experimental.ViewportFlyToInterpolator(),
     transitionDuration: 2500
   })
