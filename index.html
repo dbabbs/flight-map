@@ -6,7 +6,7 @@
 
    <!-- Open Graph // Twitter-->
    <meta name="twitter:card" content="summary_large_image" />
-   <meta name="twitter:dbabbs" content="@nickbilton" />
+   <meta name="twitter:dbabbs" content="@dbabbs" />
    <meta name="twitter:image" content="https://dbabbs.github.io/flight-map/open-graph.png">
    <meta property="og:url" content="http://projects.dylanbabbs.com/flight-map" />
    <meta property="og:title" content="Dylan's Flight Map" />
@@ -23,6 +23,8 @@
    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
    <!-- Github Button-->
    <script async defer src="https://buttons.github.io/buttons.js"></script>
+   <!-- Twitter Button -->
+   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
    <!-- Slider -->
    <script src='omni-slider.js' type="text/javascript"></script>
    <!-- D3.js -->
@@ -33,15 +35,22 @@
    <!-- CSS -->
    <link href="style.css" type="text/css" rel="stylesheet" />
 
-
-
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103633990-1"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+         dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-103633990-1');
+   </script>
 </head>
 
 <body>
    <div id="tooltip"></div>
    <div id="map"></div>
    <div id="info" class='info'>
-      <!-- <button id="send">press me</button> -->
       <div class='inner-info'>
          <div>
             <h2>Dylan's Flights</h2>
@@ -95,10 +104,6 @@
                <span id="airlines" class="stat"></span><span class="caption"> airlines</span>
             </div>
          </div>
-         <br>
-         <br>
-
-
       </div>
    </div>
    <div class="histogram">
@@ -107,19 +112,11 @@
             <span id="min"></span>
             <span id="max"></span>
          </div>
-
          <div id="graph"></div>
-
          <div id="slider"></div>
       </div>
    </div>
-
-
-
 </body>
-
 <script src="index.js" type="text/javascript"></script>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 
 </html>
