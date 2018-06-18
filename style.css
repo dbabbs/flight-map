@@ -1,3 +1,5 @@
+/* Main */
+
 body {
    margin: 0;
    padding: 0;
@@ -69,7 +71,6 @@ h2 {
    border: 1px solid #919191;
 }
 
-
 /* tooltip */
 #tooltip {
   font-size: 11px;
@@ -100,13 +101,7 @@ h2 {
    color: #fff;
 }
 
-/* other */
-.mapboxgl-ctrl {
-   display: none !important;
-}
-
 /* Slider and histogram */
-
 .histogram {
    position: fixed;
    left: 0;
@@ -132,7 +127,6 @@ h2 {
 .slider {
    width: 100%;
    height: 0.6rem;
-   /* border: 1px solid #000; */
    border-radius: 5px;
    position: relative;
    background-color: #4B5157;
@@ -141,18 +135,6 @@ h2 {
 .slider.one-way .handle.handle-left {
    visibility: hidden;
 }
-
-/* .slider .slider-circle {
-   width: 0.6rem;
-   height: 0.6rem;
-   border-radius: 50%;
-   background-color: #0a84c1;
-   position: relative;
-   display: inline-block;
-   margin-top: 1rem;
-   pointer-events: none;
-   -webkit-user-select: none;
-} */
 
 .slider .handle {
    width: 1.5rem;
@@ -200,16 +182,20 @@ h2 {
    -webkit-transition: all 0.5s ease;
    transition: all 0.5s ease;
 }
-/* #graph {
-   background-color: #fff;
-} */
 
 rect.bar {
    fill: #4B5157;
 }
+
 #min, #max {
    color: #919193;
 }
+
 #max {
    float: right;
+}
+
+/* other */
+.mapboxgl-ctrl {
+   display: none !important;
 }

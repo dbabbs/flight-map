@@ -5,18 +5,15 @@
 // twitter.com/dbabbs
 // github.com/dbabbs
 
-//TODO:
-// FB Open graph & google analyticss
-// date range on slider
-// code cleanup
-
 /////////////////////////
 /* Setup & Interaction */
 /////////////////////////
 
+var $ = function(id) { return document.getElementById(id); };
+
 //Enables panning & tilting via mouse interaction
-document.getElementById('map').addEventListener('contextmenu', evt => evt.preventDefault());
-const tooltip = document.getElementById('tooltip');
+$('map').addEventListener('contextmenu', evt => evt.preventDefault());
+const tooltip = $('tooltip');
 
 //////////////////////////
 /* Data & Visualization */
@@ -41,8 +38,7 @@ let portsMod = null;
 let backup = null;
 let portBackup = null;
 
-
-var element = document.getElementById('slider');
+//Slider
 var start = new Date('2/24/17');
 var end = new Date('6/9/18');
 var options = {
@@ -53,9 +49,7 @@ var options = {
     end: end,
     overlap: false
 };
-var slider = new Slider(element, options);
-
-
+var slider = new Slider($('slider'), options);
 
 //Fetch data from XYZ
 var xyz= 'https://xyz.api.here.com/hub/spaces/sPtFUG2Z/search';
@@ -77,8 +71,8 @@ fetch(xyz, {
    analytics(data);
    histogram(data);
 
-   document.getElementById('min').innerHTML = data[0].date.toLocaleString().split(",")[0];
-   document.getElementById('max').innerHTML = data[data.length-1].date.toLocaleString().split(",")[0];
+   $('min').innerHTML = data[0].date.toLocaleString().split(",")[0];
+   $('max').innerHTML = data[data.length-1].date.toLocaleString().split(",")[0];
 
    slider.subscribe('moving', function(z) {
 
@@ -87,8 +81,8 @@ fetch(xyz, {
 
       var tempPorts = createPorts(temp)
 
-      document.getElementById('min').innerHTML = z.left.toLocaleString().split(",")[0];
-      document.getElementById('max').innerHTML = z.right.toLocaleString().split(",")[0];
+      $('min').innerHTML = z.left.toLocaleString().split(",")[0];
+      $('max').innerHTML = z.right.toLocaleString().split(",")[0];
 
       plot(temp, tempPorts)
       analytics(temp);
@@ -168,28 +162,24 @@ function scatterFilter({layer, x, y, object}) {
       tooltip.style.left = `${x}px`;
       tooltip.innerHTML = '<div><span class="key key-port">Airport</span><span class="value">' + object.port + '</span></div>';
       tooltip.innerHTML += '<div><span class="key key-port">Arrivals</span><span class="value">' + object.count + '</span></div>';
-
       tooltip.style.backgroundColor = '#1D1E27';
       tooltip.style.opacity = '1';
 
       //this is the only line of code that updates analytics outside of analytics:
-      document.getElementById("location").innerHTML = object.port;
+      $("location").innerHTML = object.port;
    } else {
       var newBackup = JSON.parse(JSON.stringify(backup))
-
       var temp = newBackup.filter(obj => new Date(obj.date) > new Date(slider.getInfo().left));
       temp = temp.filter(obj => new Date(obj.date) < new Date(slider.getInfo().right));
-
       var newPortBackup = createPorts(temp);
       plot(temp, newPortBackup);
-      //plot(backup, portBackup);
       analytics(temp)
 
       tooltip.innerHTML = '';
       tooltip.style.opacity = '0';
 
       //analytics:
-      document.getElementById("location").innerHTML = "All";
+      $("location").innerHTML = "All";
    }
 }
 
@@ -261,9 +251,9 @@ function analytics(data) {
          airlines[airline] = 1
       }
    }
-   document.getElementById("distance").innerHTML = Math.round(distance, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); //adds commas
-   document.getElementById("trips").innerHTML = data.length;
-   document.getElementById("airlines").innerHTML = Object.keys(airlines).length;
+   $("distance").innerHTML = Math.round(distance, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); //adds commas
+   $("trips").innerHTML = data.length;
+   $("airlines").innerHTML = Object.keys(airlines).length;
 }
 
 /////////////
@@ -303,13 +293,13 @@ for (var i = 0; i < Object.keys(views).length; i++) {
    var option = document.createElement('option');
    option.innerText = Object.values(views)[i]['name'];
    option.id = Object.keys(views)[i];
-   document.getElementById('flys').appendChild(option);
+   $('flys').appendChild(option);
 }
-document.getElementById('flys').onchange = fly;
+$('flys').onchange = fly;
 
 //Perform fly
 function fly() {
-   var x = document.getElementById('flys').options[document.getElementById('flys').selectedIndex].id;
+   var x = $('flys').options[$('flys').selectedIndex].id;
    deckgl.setProps({
       viewState: {
        longitude: views[x].longitude,
@@ -334,12 +324,12 @@ for (var i = 0; i < Object.keys(themes).length; i++) {
    var option = document.createElement('option');
    option.innerText = Object.values(themes)[i];
    option.id = Object.keys(themes)[i];
-   document.getElementById('themes').appendChild(option);
+   $('themes').appendChild(option);
 }
-document.getElementById('themes').onchange = changeTheme;
+$('themes').onchange = changeTheme;
 
 function changeTheme() {
-   var p = document.getElementById('themes').options[document.getElementById('themes').selectedIndex].id;
+   var p = $('themes').options[$('themes').selectedIndex].id;
    if (p == 'light') {
       light();
    } else {
@@ -349,9 +339,9 @@ function changeTheme() {
 
 function light() {
    deckgl.getMapboxMap().setStyle('styles/xyz-osm-light.json');
-   document.getElementById("map").style.backgroundColor = '#dbe2e6'
+   $("map").style.backgroundColor = '#dbe2e6'
 
-   document.getElementById("info").style.backgroundColor = '#F1F1F2';
+   $("info").style.backgroundColor = '#F1F1F2';
    document.querySelector("h2").style.color = "#333";
 
    var captions = document.querySelectorAll(".caption");
@@ -366,13 +356,13 @@ function light() {
 
    document.querySelector(".histogram .inner-histogram").style.backgroundColor = '#F1F1F2';
 
-   document.getElementById("flys").style.backgroundColor = '#EAEAEB';
-   document.getElementById("flys").style.borderColor = '#D4D4D4';
-   document.getElementById("flys").style.color = '#6F6F6F';
+   $("flys").style.backgroundColor = '#EAEAEB';
+   $("flys").style.borderColor = '#D4D4D4';
+   $("flys").style.color = '#6F6F6F';
 
-   document.getElementById("themes").style.backgroundColor = '#EAEAEB';
-   document.getElementById("themes").style.borderColor = '#D4D4D4';
-   document.getElementById("themes").style.color = '#6F6F6F';
+   $("themes").style.backgroundColor = '#EAEAEB';
+   $("themes").style.borderColor = '#D4D4D4';
+   $("themes").style.color = '#6F6F6F';
 
    var bars = document.querySelectorAll("rect.bar");
    for (var i = 0; i < bars.length; i++) {
@@ -382,9 +372,9 @@ function light() {
 
 function dark() {
    deckgl.getMapboxMap().setStyle('styles/xyz-osm-dark.json');
-   document.getElementById("map").style.backgroundColor = '#0e1d2a'
+   $("map").style.backgroundColor = '#0e1d2a'
 
-   document.getElementById("info").style.backgroundColor = '#1D1E27';
+   $("info").style.backgroundColor = '#1D1E27';
    document.querySelector("h2").style.color = "#fff";
 
    var captions = document.querySelectorAll(".caption");
@@ -399,13 +389,13 @@ function dark() {
 
    document.querySelector(".histogram .inner-histogram").style.backgroundColor = '#1D1E27';
 
-   document.getElementById("flys").style.backgroundColor = '#0E1D2A';
-   document.getElementById("flys").style.borderColor = '#919191';
-   document.getElementById("flys").style.color = '#fff';
+   $("flys").style.backgroundColor = '#0E1D2A';
+   $("flys").style.borderColor = '#919191';
+   $("flys").style.color = '#fff';
 
-   document.getElementById("themes").style.backgroundColor = '#0E1D2A';
-   document.getElementById("themes").style.borderColor = '#919191';
-   document.getElementById("themes").style.color = '#fff';
+   $("themes").style.backgroundColor = '#0E1D2A';
+   $("themes").style.borderColor = '#919191';
+   $("themes").style.color = '#fff';
 
    var bars = document.querySelectorAll("rect.bar");
    for (var i = 0; i < bars.length; i++) {
@@ -422,7 +412,7 @@ function histogram(data) {
          left: 0
       }
 
-   var width = width = document.getElementById("graph").offsetWidth;
+   var width = width = $("graph").offsetWidth;
    var height = 40 - margin.top - margin.bottom;
 
    var parseDate = d3.timeParse("%m/%d/%y");
