@@ -47,7 +47,7 @@ var options = {
     max: end,
     start: start,
     end: end,
-    overlap: false
+    overlap: true
 };
 var slider = new Slider($('slider'), options);
 

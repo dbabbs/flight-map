@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "name": "Apollo Bright (OSM)",
+  "name": "XYZ Light (OSM)",
   "metadata": {},
   "sources": {
     "osm": {
@@ -140,5 +140,5 @@
       }
     }
   ],
-  "id": "apollomapping-bright-osm"
+  "id": "xyz-osm-light"
 }
