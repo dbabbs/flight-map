@@ -51,18 +51,14 @@ var options = {
 };
 var slider = new Slider($('slider'), options);
 
-//Fetch data from XYZ
-var xyz= 'https://xyz.api.here.com/hub/spaces/sPtFUG2Z/search';
+var xyz = 'https://xyz.api.here.com/hub/spaces/sPtFUG2Z/search';
 fetch(xyz, {
    headers: {
       Accept: 'application/geo+json',
       'Authorization': 'Bearer IOc24KwI4ndNBxt922-myA'
-   },
-   method: 'GET'
+   }
 }).then(res => res.json()).then(data => {
-   data = data.features.map(x => {
-      return x.properties;
-   });
+   data = data.features.map(x => x.properties);
 
    portsMod = createPorts(data);
    backup = data;
@@ -76,8 +72,8 @@ fetch(xyz, {
 
    slider.subscribe('moving', function(z) {
 
-      var temp = data.filter(obj => new Date(obj.date) > new Date(z.left));
-      temp = temp.filter(obj => new Date(obj.date) < new Date(z.right));
+      var temp = data.filter(obj => new Date(obj.date) >= new Date(z.left));
+      temp = temp.filter(obj => new Date(obj.date) <= new Date(z.right));
 
       var tempPorts = createPorts(temp)
 
@@ -102,7 +98,7 @@ function plot(t, portsMod) {
       strokeWidth: 5,
       pickable: true,
       autoHighlight: true,
-      highlightColor: [249, 205,23,250] //[8, 242, 145, 250]
+      highlightColor: [249, 205,23,250]
    });
 
    const scatter = new deck.ScatterplotLayer({
@@ -169,8 +165,8 @@ function scatterFilter({layer, x, y, object}) {
       $("location").innerHTML = object.port;
    } else {
       var newBackup = JSON.parse(JSON.stringify(backup))
-      var temp = newBackup.filter(obj => new Date(obj.date) > new Date(slider.getInfo().left));
-      temp = temp.filter(obj => new Date(obj.date) < new Date(slider.getInfo().right));
+      var temp = newBackup.filter(obj => new Date(obj.date) >= new Date(slider.getInfo().left));
+      temp = temp.filter(obj => new Date(obj.date) <= new Date(slider.getInfo().right));
       var newPortBackup = createPorts(temp);
       plot(temp, newPortBackup);
       analytics(temp)
@@ -316,26 +312,16 @@ function fly() {
 ////////////
 /* Themes */
 ////////////
-var themes = {
-   dark: 'Dark Theme',
-   light: 'Light Theme'
-};
-for (var i = 0; i < Object.keys(themes).length; i++) {
+var themes = ["dark", "light"];
+for (var i = 0; i < themes.length; i++) {
    var option = document.createElement('option');
-   option.innerText = Object.values(themes)[i];
-   option.id = Object.keys(themes)[i];
+   option.innerText = themes[i].charAt(0).toUpperCase() + themes[i].slice(1) + ' Theme';
+   option.id = themes[i];
    $('themes').appendChild(option);
 }
-$('themes').onchange = changeTheme;
 
-function changeTheme() {
-   var p = $('themes').options[$('themes').selectedIndex].id;
-   if (p == 'light') {
-      light();
-   } else {
-      dark();
-   }
-}
+$('themes').onchange = () => { $('themes').options[$('themes').selectedIndex].id == 'light' ? light() : dark() };
+
 
 function light() {
    deckgl.getMapboxMap().setStyle('styles/xyz-osm-light.json');
@@ -448,10 +434,4 @@ function histogram(data) {
    }).attr("height", function(d) {
       return height - y(d.length);
    });
-   // svg.append("g")
-   //     .attr("transform", "translate(0," + height + ")")
-   //     .call(d3.axisBottom(x));
-
-   // svg.append("g")
-   //     .call(d3.axisLeft(y));
 }
