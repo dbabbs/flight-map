@@ -26,7 +26,7 @@ const deckgl = new deck.DeckGL({
    mapStyle: 'styles/xyz-osm-dark.json',
    longitude: -57.38580902885856,
    latitude: 62.51353296267838,
-   zoom: 2,
+   zoom: 1.5,
    maxZoom: 88,
    pitch: 60,
    bearing: 50
@@ -51,13 +51,7 @@ var options = {
 };
 var slider = new Slider($('slider'), options);
 
-var xyz = 'https://xyz.api.here.com/hub/spaces/sPtFUG2Z/search';
-fetch(xyz, {
-   headers: {
-      Accept: 'application/geo+json',
-      'Authorization': 'Bearer IOc24KwI4ndNBxt922-myA'
-   }
-}).then(res => res.json()).then(data => {
+fetch('data/trips.geojson').then(res => res.json()).then(data => {
    data = data.features.map(x => x.properties);
 
    portsMod = createPorts(data);
