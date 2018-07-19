@@ -51,7 +51,14 @@ var options = {
 };
 var slider = new Slider($('slider'), options);
 
-fetch('data/trips.geojson').then(res => res.json()).then(data => {
+var xyz = 'https://xyz.api.here.com/hub/spaces/sPtFUG2Z/search';
+fetch(xyz, {
+   headers: {
+      Accept: 'application/geo+json',
+      'Authorization': 'Bearer IOc24KwI4ndNBxt922-myA'
+   }
+}).then(res => res.json()).then(data => {
+// fetch('data/trips.geojson').then(res => res.json()).then(data => {
    data = data.features.map(x => x.properties);
 
    portsMod = createPorts(data);
@@ -150,8 +157,8 @@ function scatterFilter({layer, x, y, object}) {
 
       tooltip.style.top = `${y}px`;
       tooltip.style.left = `${x}px`;
-      tooltip.innerHTML = '<div><span class="key key-port">Airport</span><span class="value">' + object.port + '</span></div>';
-      tooltip.innerHTML += '<div><span class="key key-port">Arrivals</span><span class="value">' + object.count + '</span></div>';
+      tooltip.innerHTML = `<div><span class="key key-port">Airport</span><span class="value">${object.port}</span></div>`;
+      tooltip.innerHTML += `<div><span class="key key-port">Arrivals</span><span class="value">${object.count}</span></div>`;
       tooltip.style.backgroundColor = '#1D1E27';
       tooltip.style.opacity = '1';
 
