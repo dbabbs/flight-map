@@ -56,3 +56,19 @@ date,origin,destination,airline,type
 6/7/18,Mykonos Airport,Athens International Airport,Olympic Air,Personal
 6/9/18,Athens International Airport,Frankfurt Airport,Lufthansa,Personal
 6/9/18,Frankfurt Airport,Seattle-Tacoma Airport,Lufthansa,Personal
+8/19/18,Seattle-Tacoma Airport,Chicago O'Hare Airport,Alaska,Work
+8/24/18,Chicago O'Hare Airport,Seattle-Tacoma Airport,Alaska,Work
+8/30/18,Seattle-Tacoma Airport,London Heathrow,British Airways,Work
+8/31/18,London Heathrow,Ataturk International Airport,British Airways,Work
+9/2/18,Ataturk International Airport,Izmir Adnan Menderes Airport,Turkish Airlines,Work
+9/4/18,Izmir Adnan Menderes Airport,Ataturk International Airport,Turkish Airlines,Work
+9/5/18,Ataturk International Airport,London Heathrow,British Airways,Work
+9/5/18,London Heathrow,Seattle-Tacoma Airport,British Airways,Work
+9/8/18,Seattle-Tacoma Airport,London Heathrow,British Airways,Work
+9/9/18,London Heathrow,Berlin Tegel,British Airways,Work
+9/12/18,Berlin Tegel,Athens International Airport,Aegean Air,Personal
+9/12/18,Athens International Airport,Mykonos Airport,Olympic Air,Personal
+9/17/18,Mykonos Airport,Athens International Airport,Olympic Air,Personal
+9/17/18,Athens International Airport,Berlin Tegel,Aegean Air,Personal
+9/17/18,Berlin Tegel,London Heathrow,British Airways,Work
+9/17/18,London Heathrow,Seattle-Tacoma Airport,British Airways,Work
