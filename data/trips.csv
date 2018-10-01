@@ -66,8 +66,8 @@ date,origin,destination,airline,type,class
 9/5/18,London Heathrow,Seattle-Tacoma Airport,British Airways,Work,International Premium Economy
 9/8/18,Seattle-Tacoma Airport,London Heathrow,British Airways,Work,International Premium Economy
 9/9/18,London Heathrow,Berlin Tegel,British Airways,Work,Economy
-9/12/18,Berlin Tegel,Athens International Airport,Aegean Air,Personal,Economy
-9/12/18,Athens International Airport,Mykonos Airport,Olympic Air,Personal,Economy
+9/13/18,Berlin Tegel,Athens International Airport,Aegean Air,Personal,Economy
+9/13/18,Athens International Airport,Mykonos Airport,Olympic Air,Personal,Economy
 9/17/18,Mykonos Airport,Athens International Airport,Olympic Air,Personal,Economy
 9/17/18,Athens International Airport,Berlin Tegel,Aegean Air,Personal,Economy
 9/17/18,Berlin Tegel,London Heathrow,British Airways,Work,Economy

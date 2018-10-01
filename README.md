@@ -1,7 +1,7 @@
 # Flight Map
 A map of my flight history throughout 2017 and 2018.
 
-Live version available at: [dbabbs.github.io/flight-map](https://www.dbabbs.github.io/flight-map)
+Live version available at: [projects.dylanbabbs.com/flight-map](https://projects.dylanbabbs.com/flight-map)
 
 ![flight-map](open-graph.png)
 
