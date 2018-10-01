@@ -38,9 +38,8 @@ let portsMod = null;
 let backup = null;
 let portBackup = null;
 
-//Slider
 const start = new Date('2/24/17');
-const end = new Date('6/9/18');
+const end = new Date();
 const options = {
    isDate: true,
    min: start,
@@ -49,11 +48,16 @@ const options = {
    end: end,
    overlap: true
 };
+
 const slider = new Slider($('slider'), options);
 
-const xyz = 'https://xyz.api.here.com/hub/spaces/sPtFUG2Z/search?access_token=IOc24KwI4ndNBxt922-myA';
+
+const xyz = 'https://xyz.api.here.com/hub/spaces/79PII7Rm/search?access_token=deORolV_eXZ8G2lzpEixdg';
 fetch(xyz).then(res => res.json()).then(data => {
    data = data.features.map(x => x.properties);
+
+   //Slider
+
 
    portsMod = createPorts(data);
    backup = data;
@@ -63,7 +67,7 @@ fetch(xyz).then(res => res.json()).then(data => {
    histogram(data);
 
    $('min').innerHTML = data[0].date.toLocaleString().split(",")[0];
-   $('max').innerHTML = data[data.length - 1].date.toLocaleString().split(",")[0];
+   $('max').innerHTML = new Date().toLocaleString().split(",")[0]; //data[data.length - 1].date.toLocaleString().split(",")[0];
 
    slider.subscribe('moving', function(z) {
 
@@ -180,10 +184,10 @@ function arcTooltip({x, y, object}) {
    if (object) {
       tooltip.style.top = `${y}px`;
       tooltip.style.left = `${x}px`;
-      tooltip.innerHTML = '<div><span class="key key-route">Origin</span><span class="value">' + object.origin + '</span></div>';
-      tooltip.innerHTML += '<div><span class="key key-route">Destination</span><span class="value">' + object.destination + '</span></div>';
-      tooltip.innerHTML += '<div><span class="key key-route">Date</span><span class="value">' + new Date(object.date).toLocaleDateString() + '</span></div>';
-      tooltip.innerHTML += '<div><span class="key key-route">Airline</span><span class="value">' + object.airline + '</span></div>';
+      tooltip.innerHTML = `<div><span class="key key-route">Origin</span><span class="value">${object.origin}</span></div>`;
+      tooltip.innerHTML += `<div><span class="key key-route">Destination</span><span class="value">${object.destination}</span></div>`;
+      tooltip.innerHTML += `<div><span class="key key-route">Date</span><span class="value">${new Date(object.date).toLocaleDateString()}</span></div>`;
+      tooltip.innerHTML += `<div><span class="key key-route">Airline</span><span class="value">${object.airline}</span></div>`;
       tooltip.style.backgroundColor = '#1D1E27';
       tooltip.style.opacity = '1';
    } else {
@@ -403,7 +407,7 @@ function histogram(data) {
    const parseDate = d3.timeParse("%m/%d/%y");
    const x = d3.scaleTime().domain([
       new Date(2017, 1, 20),
-      new Date(2018, 5, 10)
+      new Date()
    ]).rangeRound([0, width]);
    const y = d3.scaleLinear().range([height, 0]);
 
