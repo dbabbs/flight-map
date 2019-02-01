@@ -1,6 +1,16 @@
 # Flight Map
 A map of my flight history throughout 2017 and 2018.
 
+## 🚨 Notice 🚨
+
+This project has been deprecated in favor of FlightMapper.io, a self-service tool for anyone to visualize their flight history.
+
+For my map (Dylan Babbs), please visit [flightmapper.io/maps/dbabbs](https://flightmapper.io/maps/dbabbs)
+
+
+
+## About
+
 Live version available at: [projects.dylanbabbs.com/flight-map](https://projects.dylanbabbs.com/flight-map)
 
 ![flight-map](open-graph.png)

@@ -1,5 +1,29 @@
 /* Main */
 
+#alert {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background: rgba(0, 0, 0, .5);
+   z-index: 1000000000;
+}
+
+#alert-modal {
+   border-radius: 5px;
+   padding: 40px;
+   width: 60vw;
+   background: white;
+   z-index: 1000000001;
+}
+
+#ok {
+   cursor: pointer;
+   /* color: blue; */
+}
+
 body {
    margin: 0;
    padding: 0;
