@@ -8,8 +8,7 @@
 
 
 document.getElementById('ok').onclick = () => {
-   document.getElementById('alert').style.opacity = 0;
-   document.getElementById('alert').style.visibility = 'none';
+   document.getElementById('alert').style.display = 'none';
 }
 
 
